@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 
@@ -19,8 +19,8 @@ func DebugLogger(req *http.Request, next option.MiddlewareNext) (res *http.Respo
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", req.Header)
-	fmt.Printf("%+v\n", string(body[:]))
+	log.Println("%+v", req.Header)
+	log.Println("%+v", string(body[:]))
 
 	// Forward the request to the next handler
 	return next(req)
@@ -95,7 +95,7 @@ func queryRules(client *anthropic.Client, query string) {
 	}
 
 	for idx := 0; idx < len(message.Content); idx++ {
-		fmt.Printf("%+v\n", message.Content[idx].Text)
+		log.Println("%+v", message.Content[idx].Text)
 	}
 
 }
@@ -120,6 +120,6 @@ func queryAgent(client *anthropic.Client, query string) {
 	}
 
 	for idx := 0; idx < len(message.Content); idx++ {
-		fmt.Printf("%+v\n", message.Content[idx].Text)
+		log.Println("%+v", message.Content[idx].Text)
 	}
 }
